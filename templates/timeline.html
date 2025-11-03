@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>タイムライン</title>
+</head>
+
+<body>
+    <h1>タイムライン</h1>
+    {% if 'user_id' in session %}
+        <a href="{{ url_for('create_post') }}">新規投稿</a> |
+        <a href="{{ url_for('logout') }}">ログアウト</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">ログイン</a>
+    {% endif %}
+    <hr>
+    {% for post in posts %}
+        <p>
+            <strong>{{ post.user.name }}</strong> さん<br>
+            {{ post.content }}<br>
+            <small>{{ post.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+        </p>
+        <hr>
+    {% else %}
+        <p>投稿はまだありません。</p>
+    {% endfor %}
+</body>
+</html>
+
