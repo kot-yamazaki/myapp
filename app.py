@@ -4,6 +4,8 @@ from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import logging
+from flask_migrate import Migrate
+
 
 # Flaskアプリ設定
 app = Flask(__name__)
@@ -14,6 +16,8 @@ app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'static', 'uploads')
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 # DB初期化
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 # ログ設定
 if not os.path.exists('logs'):
     os.makedirs('logs')
@@ -41,9 +45,24 @@ class User(db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
+    like_count = db.Column(db.Integer, default=0)
     timestamp = db.Column(db.DateTime, default=db.func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
     user = db.relationship('User', backref=db.backref('posts', lazy=True))
+    likes = db.relationship('Like', backref='post', lazy=True)  # ✅ こちらで backref 定義
+
+    def is_liked_by(self, user_id):
+        return any(like.user_id == user_id for like in self.likes)
+
+
+class Like(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    timestamp = db.Column(db.DateTime, default=db.func.now())
+
+    user = db.relationship('User', backref=db.backref('likes', lazy=True))
 
 # ==========================
 # ルート
@@ -140,6 +159,36 @@ def create_post():
         return redirect(url_for('timeline'))
 
     return render_template('create_post.html')
+# いいね機能
+def is_liked_by(self, user_id):
+    return any(like.user_id == user_id for like in self.likes)
+
+@app.route('/like/<int:post_id>', methods=['POST'])
+def toggle_like(post_id):
+    if 'user_id' not in session:
+        flash('ログインしてください')
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+    post = Post.query.get_or_404(post_id)
+
+    existing_like = Like.query.filter_by(user_id=user_id, post_id=post_id).first()
+
+    if existing_like:
+        # すでにいいねしていたら削除（いいね解除）
+        db.session.delete(existing_like)
+        post.like_count = max(0, post.like_count - 1)  # ✅ 減算（マイナス防止）
+        db.session.commit()
+        app.logger.info(f'ユーザー {user_id} が投稿 {post_id} のいいねを解除しました')
+    else:
+        # 新しくいいね
+        new_like = Like(user_id=user_id, post_id=post_id)
+        db.session.add(new_like)
+        post.like_count = post.like_count + 1  # ✅ 加算
+        db.session.commit()
+        app.logger.info(f'ユーザー {user_id} が投稿 {post_id} にいいねしました')
+
+    return redirect(url_for('timeline'))
 
 
 # ==========================

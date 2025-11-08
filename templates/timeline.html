@@ -13,16 +13,25 @@
         <a href="{{ url_for('login') }}">ログイン</a>
     {% endif %}
     <hr>
+
     {% for post in posts %}
-        <p>
+        <div class="post">
+        </div>
             <strong>{{ post.user.name }}</strong> さん<br>
             {{ post.content }}<br>
             <small>{{ post.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
         </p>
+        <form action="{{ url_for('toggle_like', post_id=post.id) }}" method="post" style="display:inline;">
+            {% if post.is_liked_by(session['user_id']) %}
+                <button type="submit">❤️ いいね解除</button>
+            {% else %}
+                <button type="submit">🤍 いいね</button>
+            {% endif %}
+        </form>
+        <span>{{ post.like_count }} 件</span>
         <hr>
     {% else %}
         <p>投稿はまだありません。</p>
     {% endfor %}
 </body>
 </html>
-
