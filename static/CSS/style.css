@@ -1,0 +1,395 @@
+/* ==============================
+   単色・淡いピンクのやさしいログイン画面
+============================== */
+body {
+    font-family: "Zen Maru Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+    background-color: #fdeef4; /* 淡いピンク */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* ==============================
+   ログインボックス
+============================== */
+.login-container {
+    background: #fffafc; /* ほんのりピンクがかった白 */
+    border: 2px solid #f8d7e5;
+    border-radius: 18px;
+    box-shadow: 0 6px 15px rgba(255, 182, 193, 0.25);
+    width: 320px;
+    padding: 40px 30px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* ==============================
+   見出し
+============================== */
+h1 {
+    color: #d46a91;
+    font-size: 1.7em;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+/* ==============================
+   入力欄
+============================== */
+input[type="text"],
+input[type="password"] {
+    width: 85%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #f3c6d5;
+    border-radius: 10px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    font-size: 1em;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #e69ab5;
+    box-shadow: 0 0 6px rgba(255, 172, 201, 0.4);
+    outline: none;
+}
+
+/* ==============================
+   ログインボタン
+============================== */
+input[type="submit"] {
+    background-color: #f3b5cc; /* 淡いピンク */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    width: 90%;
+    margin-top: 15px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover {
+    background-color: #eb9ab8;
+    transform: translateY(-2px);
+}
+
+/* ==============================
+   リンク
+============================== */
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #c46486;
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #d46a91;
+    text-decoration: underline;
+}
+
+/* ==============================
+   フェードインアニメーション
+============================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* ==============================
+   登録ページ用のデザイン
+============================== */
+.register-container {
+    background: #fffafc;
+    border: 2px solid #f8d7e5;
+    border-radius: 18px;
+    box-shadow: 0 6px 15px rgba(255, 182, 193, 0.25);
+    width: 350px;
+    padding: 40px 30px;
+    text-align: center;
+    margin: 50px auto;
+}
+
+.register-container h1 {
+    color: #d46a91;
+    margin-bottom: 25px;
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+.register-container input[type="text"],
+.register-container input[type="number"],
+.register-container input[type="password"],
+.register-container input[type="file"] {
+    width: 85%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 2px solid #f3c6d5;
+    border-radius: 10px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    font-size: 1em;
+}
+
+.register-container input:focus {
+    border-color: #e69ab5;
+    box-shadow: 0 0 6px rgba(230, 154, 181, 0.4);
+    outline: none;
+}
+
+.register-container input[type="submit"] {
+    background-color: #f3b5cc;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    width: 90%;
+    margin-top: 15px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.register-container input[type="submit"]:hover {
+    background-color: #eb9ab8;
+    transform: translateY(-2px);
+}
+
+.links {
+    margin-top: 20px;
+    font-size: 0.95em;
+}
+
+.links a {
+    color: #c46486;
+    text-decoration: none;
+}
+
+.links a:hover {
+    color: #d46a91;
+    text-decoration: underline;
+}
+/* ==============================
+   ユーザー一覧ページ
+============================== */
+.user-list-container {
+    text-align: center;
+    background-color: #fffafc;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.user-list-container h1 {
+    color: #d46a91;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.user-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.user-card {
+    background-color: #fff;
+    border: 2px solid #f6cadd;
+    border-radius: 18px;
+    box-shadow: 0 6px 12px rgba(255, 182, 193, 0.25);
+    width: 180px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 18px rgba(255, 182, 193, 0.35);
+}
+
+.user-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #f3b5cc;
+    margin-bottom: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+    color: #c46486;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.user-age {
+    color: #d08ba7;
+    font-size: 0.95em;
+}
+
+.links {
+    margin-top: 20px;
+    font-size: 0.95em;
+}
+
+.links a {
+    color: #c46486;
+    text-decoration: none;
+}
+
+.links a:hover {
+    color: #d46a91;
+    text-decoration: underline;
+}
+.user-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #f3b5cc;
+    margin-bottom: 10px;
+    background-color: #ffe6ee; /* 画像なしでも淡いピンクで統一 */
+}
+.user-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.user-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f4a7b9; /* 淡いピンクの枠 */
+}
+
+.user-item span {
+    font-size: 18px;
+    color: #555;
+}
+/* ==============================
+   タイムラインページ
+============================== */
+.timeline-body {
+    background-color: #fdeef4; /* 淡いピンク背景 */
+    font-family: "Zen Maru Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.timeline-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fffafc;
+    border: 2px solid #f8d7e5;
+    border-radius: 18px;
+    padding: 30px 40px;
+    box-shadow: 0 6px 15px rgba(255, 182, 193, 0.25);
+}
+
+.timeline-container h1 {
+    text-align: center;
+    color: #d46a91;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+.top-links {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.top-links a {
+    color: #c46486;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.top-links a:hover {
+    color: #d46a91;
+    text-decoration: underline;
+}
+
+/* 投稿カード */
+.post-card {
+    background-color: #fff;
+    border: 2px solid #f6cadd;
+    border-radius: 18px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(255, 182, 193, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(255, 182, 193, 0.35);
+}
+
+.post-header {
+    color: #c46486;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.post-content {
+    font-size: 1.1em;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.post-footer {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.like-form {
+    display: inline-block;
+}
+
+.like-button {
+    background-color: #f3b5cc;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 6px 14px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 5px;
+}
+
+.like-button:hover {
+    background-color: #eb9ab8;
+}
+
+.like-button.liked {
+    background-color: #f08dad;
+}
+
+.like-count {
+    margin-left: 10px;
+    color: #c46486;
+    font-weight: bold;
+}
+
+.no-posts {
+    text-align: center;
+    color: #999;
+    margin-top: 40px;
+    font-size: 1.1em;
+}

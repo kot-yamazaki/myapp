@@ -1,37 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+    <meta charset="UTF-8">
     <title>タイムライン</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+<body class="timeline-body">
+    <div class="timeline-container">
+        <h1>タイムライン</h1>
 
-<body>
-    <h1>タイムライン</h1>
-    {% if 'user_id' in session %}
-        <a href="{{ url_for('create_post') }}">新規投稿</a> |
-        <a href="{{ url_for('logout') }}">ログアウト</a>
-    {% else %}
-        <a href="{{ url_for('login') }}">ログイン</a>
-    {% endif %}
-    <hr>
-
-    {% for post in posts %}
-        <div class="post">
-        </div>
-            <strong>{{ post.user.name }}</strong> さん<br>
-            {{ post.content }}<br>
-            <small>{{ post.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
-        </p>
-        <form action="{{ url_for('toggle_like', post_id=post.id) }}" method="post" style="display:inline;">
-            {% if post.is_liked_by(session['user_id']) %}
-                <button type="submit">❤️ いいね解除</button>
+        <div class="top-links">
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('create_post') }}">📝 新規投稿</a> |
+                <a href="{{ url_for('logout') }}">🚪 ログアウト</a>
             {% else %}
-                <button type="submit">🤍 いいね</button>
+                <a href="{{ url_for('login') }}">🔑 ログイン</a>
             {% endif %}
-        </form>
-        <span>{{ post.like_count }} 件</span>
+        </div>
+
         <hr>
-    {% else %}
-        <p>投稿はまだありません。</p>
-    {% endfor %}
+
+        {% if posts %}
+            {% for post in posts %}
+                <div class="post-card">
+                    <div class="post-header">
+                        <strong>{{ post.user.name }}</strong> さん
+                    </div>
+                    <div class="post-content">
+                        {{ post.content }}
+                    </div>
+                    <div class="post-footer">
+                        <small>{{ post.timestamp.strftime('%Y-%m-%d %H:%M') }}</small><br>
+
+                        <form action="{{ url_for('toggle_like', post_id=post.id) }}" method="post" class="like-form">
+                            {% if post.is_liked_by(session['user_id']) %}
+                                <button type="submit" class="like-button liked">❤️ いいね解除</button>
+                            {% else %}
+                                <button type="submit" class="like-button">🤍 いいね</button>
+                            {% endif %}
+                        </form>
+                        <span class="like-count">{{ post.like_count }} 件</span>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-posts">投稿はまだありません。</p>
+        {% endif %}
+    </div>
 </body>
 </html>
